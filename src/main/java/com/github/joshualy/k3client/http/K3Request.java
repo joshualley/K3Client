@@ -1,4 +1,4 @@
-package com.valleys.k3client.http;
+package com.github.joshualy.k3client.http;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;

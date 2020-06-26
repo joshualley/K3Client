@@ -1,9 +1,8 @@
-package com.valleys.k3client.params.impl;
+package com.github.joshualy.k3client.params.impl;
 
-import com.valleys.k3client.params.RequestParam;
+import com.github.joshualy.k3client.params.RequestParam;
 
-public class SubmitParam extends BaseParam implements RequestParam {
-
+public class DeleteParam extends BaseParam implements RequestParam {
     @Override
     public String toJson() throws Exception {
         if(null == FormId || (null == Numbers && null == Ids)) {
@@ -13,16 +12,15 @@ public class SubmitParam extends BaseParam implements RequestParam {
     }
 
     public String getRequestPath() {
-        return "DynamicFormService.Submit";
+        return "DynamicFormService.Delete";
     }
 
-    private SubmitParam(String formId, long createOrgId, String[] numbers, long[] ids, boolean networkCtrl, long selectedPostId) {
+    private DeleteParam(String formId, long createOrgId, String[] numbers, long[] ids, boolean networkCtrl) {
         FormId = formId;
         CreateOrgId = createOrgId;
         Numbers = numbers;
         Ids = ids;
         NetworkCtrl = networkCtrl;
-        SelectedPostId = selectedPostId;
     }
 
     // 业务对象表单Id，字符串类型（必录）
@@ -35,8 +33,6 @@ public class SubmitParam extends BaseParam implements RequestParam {
     private long[] Ids;
     // 是否启用网控，布尔类型，默认false（非必录）
     private boolean NetworkCtrl = false;
-    // 工作流发起员工岗位内码，整型（非必录） 注（员工身兼多岗时不传参默认取第一个岗位）
-    private long SelectedPostId = 0;
 
     public static class Builder {
         // 业务对象表单Id，字符串类型（必录）
@@ -49,15 +45,14 @@ public class SubmitParam extends BaseParam implements RequestParam {
         private long[] Ids;
         // 是否启用网控，布尔类型，默认false（非必录）
         private boolean NetworkCtrl = false;
-        // 工作流发起员工岗位内码，整型（非必录） 注（员工身兼多岗时不传参默认取第一个岗位）
-        private long SelectedPostId = 0;
 
-        public SubmitParam build() {
-            return new SubmitParam(FormId, CreateOrgId, Numbers, Ids, NetworkCtrl, SelectedPostId);
+        public DeleteParam build() {
+            return new DeleteParam(FormId, CreateOrgId, Numbers, Ids, NetworkCtrl);
         }
 
-        public void setFormId(String formId) {
+        public Builder setFormId(String formId) {
             FormId = formId;
+            return this;
         }
 
         public Builder setCreateOrgId(long createOrgId) {
@@ -79,10 +74,6 @@ public class SubmitParam extends BaseParam implements RequestParam {
             NetworkCtrl = networkCtrl;
             return this;
         }
-
-        public Builder setSelectedPostId(long selectedPostId) {
-            SelectedPostId = selectedPostId;
-            return this;
-        }
     }
+
 }

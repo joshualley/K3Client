@@ -1,8 +1,8 @@
-package com.valleys.k3client.http;
+package com.github.joshualy.k3client.http;
 
+import com.github.joshualy.k3client.params.RequestParam;
+import com.github.joshualy.k3client.params.impl.LoginParam;
 import com.google.gson.JsonObject;
-import com.valleys.k3client.params.RequestParam;
-import com.valleys.k3client.params.impl.LoginParam;
 import okhttp3.*;
 import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;

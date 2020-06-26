@@ -1,4 +1,4 @@
-package com.valleys.k3client.params.impl;
+package com.github.joshualy.k3client.params.impl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

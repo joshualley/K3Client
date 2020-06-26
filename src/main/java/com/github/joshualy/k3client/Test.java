@@ -1,13 +1,14 @@
-package com.valleys.k3client;
+package com.github.joshualy.k3client;
 
+import com.github.joshualy.k3client.http.K3Client;
+import com.github.joshualy.k3client.params.impl.LoginParam;
+import com.github.joshualy.k3client.params.impl.QueryParam;
+import com.github.joshualy.k3client.params.impl.SaveParam;
+import com.github.joshualy.k3client.params.impl.ViewParam;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.valleys.k3client.http.K3Client;
-import com.valleys.k3client.params.impl.*;
+import com.github.joshualy.k3client.params.impl.*;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

@@ -1,7 +1,7 @@
-package com.valleys.k3client.params.impl;
+package com.github.joshualy.k3client.params.impl;
 
 import com.google.gson.JsonObject;
-import com.valleys.k3client.params.RequestParam;
+import com.github.joshualy.k3client.params.RequestParam;
 
 public class SaveParam extends BaseParam implements RequestParam {
 
