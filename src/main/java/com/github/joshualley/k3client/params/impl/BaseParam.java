@@ -48,15 +48,16 @@ public class BaseParam {
                 }
                 data.add(name, array);
             } else if (type == int.class){
-                int v = (int)value;
+                int v = Integer.valueOf(String.valueOf(value));
                 if(v == -1) continue;
                 data.addProperty(name, v);
             } else if (type == long.class){
-                long v = (long)value;
+                long v = Long.valueOf(String.valueOf(value));
                 if(v == -1) continue;
                 data.addProperty(name, v);
             } else if (type == boolean.class){
-                data.addProperty(name, (boolean)value);
+                boolean v = Boolean.valueOf(String.valueOf(value));
+                data.addProperty(name, v);
             } else {
                 throw new Exception(name + "被定义为不受支持的字段类型：" + type);
             }

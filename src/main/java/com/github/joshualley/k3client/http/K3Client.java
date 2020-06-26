@@ -70,9 +70,8 @@ public class K3Client {
         return param.parseResponse(post(url, param.toJson()));
     }
 
-    public void loginRequestAsync(LoginParam param, K3Response response) {
+    public void loginRequestAsync(final LoginParam param, final K3Response response) {
         new Thread(new Runnable() {
-            @Override
             public void run() {
                 try {
                     JsonObject res = loginRequest(param);
@@ -92,7 +91,7 @@ public class K3Client {
         return param.parseResponse(post(url, param.toJson()));
     }
 
-    public void postRequestAsync(RequestParam param, K3Response response) {
+    public void postRequestAsync(final RequestParam param, final K3Response response) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -102,7 +101,6 @@ public class K3Client {
                 } catch (Exception e) {
                     response.onError(e);
                 }
-
             }
         }).start();
     }
