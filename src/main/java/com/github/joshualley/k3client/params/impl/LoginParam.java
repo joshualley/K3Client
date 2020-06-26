@@ -1,8 +1,8 @@
-package com.github.joshualy.k3client.params.impl;
+package com.github.joshualley.k3client.params.impl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.github.joshualy.k3client.params.RequestParam;
+import com.github.joshualley.k3client.params.RequestParam;
 
 import java.util.Date;
 import java.util.UUID;

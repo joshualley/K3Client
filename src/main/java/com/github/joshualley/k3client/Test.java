@@ -1,13 +1,13 @@
-package com.github.joshualy.k3client;
+package com.github.joshualley.k3client;
 
-import com.github.joshualy.k3client.http.K3Client;
-import com.github.joshualy.k3client.params.impl.LoginParam;
-import com.github.joshualy.k3client.params.impl.QueryParam;
-import com.github.joshualy.k3client.params.impl.SaveParam;
-import com.github.joshualy.k3client.params.impl.ViewParam;
+import com.github.joshualley.k3client.http.K3Client;
+import com.github.joshualley.k3client.params.impl.LoginParam;
+import com.github.joshualley.k3client.params.impl.QueryParam;
+import com.github.joshualley.k3client.params.impl.SaveParam;
+import com.github.joshualley.k3client.params.impl.ViewParam;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.github.joshualy.k3client.params.impl.*;
+import com.github.joshualley.k3client.params.impl.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

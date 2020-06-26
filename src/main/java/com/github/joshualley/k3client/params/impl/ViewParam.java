@@ -1,6 +1,6 @@
-package com.github.joshualy.k3client.params.impl;
+package com.github.joshualley.k3client.params.impl;
 
-import com.github.joshualy.k3client.params.RequestParam;
+import com.github.joshualley.k3client.params.RequestParam;
 
 public class ViewParam extends BaseParam implements RequestParam {
     public String toJson() throws Exception {

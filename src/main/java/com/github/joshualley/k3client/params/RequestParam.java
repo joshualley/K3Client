@@ -1,4 +1,4 @@
-package com.github.joshualy.k3client.params;
+package com.github.joshualley.k3client.params;
 
 import com.google.gson.JsonObject;
 

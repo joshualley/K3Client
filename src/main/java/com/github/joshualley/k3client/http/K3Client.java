@@ -1,7 +1,7 @@
-package com.github.joshualy.k3client.http;
+package com.github.joshualley.k3client.http;
 
-import com.github.joshualy.k3client.params.RequestParam;
-import com.github.joshualy.k3client.params.impl.LoginParam;
+import com.github.joshualley.k3client.params.RequestParam;
+import com.github.joshualley.k3client.params.impl.LoginParam;
 import com.google.gson.JsonObject;
 import okhttp3.*;
 import okhttp3.Request;
