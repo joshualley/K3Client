@@ -35,7 +35,7 @@ public class Test {
 
             @Override
             public void onError(Exception e) {
-                System.out.println("登录时出现错误：" + e.getMessage());
+                System.out.println("登录时发生错误：" + e.getMessage());
             }
         });
     }
@@ -80,6 +80,7 @@ public class Test {
         QueryParam queryParam = new QueryParam.Builder()
                 .setFormId("ora_CRM_Niche")
                 .setFieldKeys(new String[]{"FID", "FDocumentStatus"})
+                .setFilterString("FDocumentStatus='D'")
                 .build();
         client.postRequestAsync(queryParam, new K3Client.K3Response() {
             @Override
@@ -92,6 +93,20 @@ public class Test {
                 System.out.println("e = [" + e.getMessage() + "]");
             }
         });
+    }
+
+    public static void TestView() {
+        K3Client client = K3Client.getInstance();
+        ViewParam viewParam = new ViewParam.Builder()
+                .setFormId("ora_CRM_Niche")
+                .setNumber("")
+                .build();
+        try {
+            JsonObject res = client.postRequest(viewParam);
+            System.out.println(res.toString());
+        } catch (Exception e) {
+            System.out.println("e = [" + e.getMessage() + "]");
+        }
     }
 
 

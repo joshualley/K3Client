@@ -50,7 +50,7 @@ public class K3Client {
         return response.body().string();
     }
 
-    public String loginRequest(LoginParam param) throws Exception {
+    public JsonObject loginRequest(LoginParam param) throws Exception {
         assert domain == null : "未设置请求指向的域名.";
         if(null == okHttpClient){
             okHttpClient = new OkHttpClient.Builder()
@@ -67,7 +67,7 @@ public class K3Client {
                 }).build();
         }
         String url = domain + prefix + param.getRequestPath() + suffix;
-        return post(url, param.toJson());
+        return param.parseResponse(post(url, param.toJson()));
     }
 
     public void loginRequestAsync(LoginParam param, K3Response response) {
@@ -75,8 +75,8 @@ public class K3Client {
             @Override
             public void run() {
                 try {
-                    String res = loginRequest(param);
-                    response.onSuccess(param.parseResponse(res));
+                    JsonObject res = loginRequest(param);
+                    response.onSuccess(res);
                 } catch (Exception e) {
                     response.onError(e);
                 }
@@ -85,11 +85,11 @@ public class K3Client {
         }).start();
     }
 
-    public String postRequest(RequestParam param) throws Exception {
+    public JsonObject postRequest(RequestParam param) throws Exception {
         assert domain == null : "未设置请求指向的域名.";
         assert okHttpClient == null : "未进行登录.";
         String url = domain + prefix + param.getRequestPath() + suffix;
-        return post(url, param.toJson());
+        return param.parseResponse(post(url, param.toJson()));
     }
 
     public void postRequestAsync(RequestParam param, K3Response response) {
@@ -97,8 +97,8 @@ public class K3Client {
             @Override
             public void run() {
                 try {
-                    String res = postRequest(param);
-                    response.onSuccess(param.parseResponse(res));
+                    JsonObject res = postRequest(param);
+                    response.onSuccess(res);
                 } catch (Exception e) {
                     response.onError(e);
                 }
