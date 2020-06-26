@@ -1,4 +1,13 @@
 # K3Client of Java Version
+## Maven:
+   ```xml
+    <dependency>
+      <groupId>com.github.joshualley</groupId>
+      <artifactId>K3Client</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+   ```
+    
 ## Usages:
 对金蝶云星空的WebApi的请求进行了一次封装，用法如下：
 1. 登录
