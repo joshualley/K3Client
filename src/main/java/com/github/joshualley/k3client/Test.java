@@ -24,8 +24,8 @@ public class Test {
         String url = "http://yourdomain.com";
         K3Client client = K3Client.getInstance().setDomain(url);
         LoginParam param = new LoginParam.Builder()
-                .setAcctID("5d3ea17f85b053")
-                .setUsername("admin")
+                .setAcctID("5f2f9bc8106814")
+                .setUsername("user")
                 .setPassword("123456")
                 .build();
         client.loginRequestAsync(param, new K3Response() {
@@ -84,6 +84,10 @@ public class Test {
                 .setFieldKeys(new String[]{"FID", "FDocumentStatus"})
                 .setFilterString("FDocumentStatus='D'")
                 .build();
+        try{
+            System.out.println(queryParam.toJson());
+        }catch (Exception e){}
+
         client.postRequestAsync(queryParam, new K3Response() {
             @Override
             public void onSuccess(JsonObject res) {
