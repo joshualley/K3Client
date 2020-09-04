@@ -4,7 +4,7 @@
     <dependency>
       <groupId>com.github.joshualley</groupId>
       <artifactId>K3Client</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0</version>
     </dependency>
    ```
     
@@ -19,7 +19,7 @@
             .setUsername("用户名")
             .setPassword("密码")
             .build();
-    client.loginRequestAsync(param, new K3Client.K3Response() {
+    client.loginRequestAsync(param, new K3Response() {
         @Override
         public void onSuccess(JsonObject res) {
             // Do Something.
@@ -39,7 +39,7 @@
            .setFieldKeys(new String[]{"FID", "FDocumentStatus"})
            .setFilterString("FDocumentStatus='D'")
            .build();
-   client.postRequestAsync(queryParam, new K3Client.K3Response() {
+   client.postRequestAsync(queryParam, new K3Response() {
        @Override
        public void onSuccess(JsonObject res) {
            System.out.println(res.toString());
@@ -81,7 +81,7 @@
             .setFormId("ora_Task_PersonalReport")
             .setModel(object)
             .build();
-    client.postRequestAsync(saveParam, new K3Client.K3Response() {
+    client.postRequestAsync(saveParam, new K3Response() {
         @Override
         public void onSuccess(JsonObject res) {
             System.out.println("res : " + res.toString());

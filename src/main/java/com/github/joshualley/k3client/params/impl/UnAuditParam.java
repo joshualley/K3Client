@@ -8,80 +8,92 @@ public class UnAuditParam extends BaseParam implements RequestParam {
         if(null == FormId || (null == Numbers && null == Ids)) {
             throw new Exception("参数构建不正确！");
         }
-        return super.toJson();
+        return super.toJSON().toString();
     }
 
     public String getRequestPath() {
         return "DynamicFormService.UnAudit";
     }
 
-    private UnAuditParam(String formId, long createOrgId, String[] numbers, long[] ids, boolean networkCtrl, String[] interationFlags) {
-        FormId = formId;
-        CreateOrgId = createOrgId;
-        Numbers = numbers;
-        Ids = ids;
-        NetworkCtrl = networkCtrl;
-        InterationFlags = interationFlags;
-    }
+    private UnAuditParam() {}
 
-    // 业务对象表单Id，字符串类型（必录）
     private String FormId;
-    // 创建者组织内码，字符串类型（非必录）
-    private long CreateOrgId = 0;
-    // 单据编码集合，数组类型，格式：[No1,No2,...]（使用编码时必录）
+    private long CreateOrgId = -1;
     private String[] Numbers;
-    // 单据内码集合，字符串类型，格式："Id1,Id2,..."（使用内码时必录）
     private long[] Ids;
-    // 是否启用网控，布尔类型，默认false（非必录）
     private boolean NetworkCtrl = false;
-    // 交互标志集合，字符串类型，分号分隔，格式："flag1;flag2;..."（非必录） 例如（允许负库存标识：STK_InvCheckResult）
-    private String[] InterationFlags;
+    private String InterationFlags;
 
     public static class Builder {
-        // 业务对象表单Id，字符串类型（必录）
-        private String FormId;
-        // 创建者组织内码，字符串类型（非必录）
-        private long CreateOrgId = 0;
-        // 单据编码集合，数组类型，格式：[No1,No2,...]（使用编码时必录）
-        private String[] Numbers;
-        // 单据内码集合，字符串类型，格式："Id1,Id2,..."（使用内码时必录）
-        private long[] Ids;
-        // 是否启用网控，布尔类型，默认false（非必录）
-        private boolean NetworkCtrl = false;
-        // 交互标志集合，字符串类型，分号分隔，格式："flag1;flag2;..."（非必录） 例如（允许负库存标识：STK_InvCheckResult）
-        private String[] InterationFlags;
 
+        private UnAuditParam unAuditParam = new UnAuditParam();
+
+        /**
+         * 构建反审核参数
+         * @return 反审核参数对象
+         */
         public UnAuditParam build() {
-            return new UnAuditParam(FormId, CreateOrgId, Numbers, Ids, NetworkCtrl, InterationFlags);
+            return unAuditParam;
         }
 
+        /**
+         * 业务对象表单Id（必录）
+         * @param formId 业务对象表单Id
+         * @return
+         */
         public Builder setFormId(String formId) {
-            FormId = formId;
+            unAuditParam.FormId = formId;
             return this;
         }
 
+        /**
+         * 创建者组织内码（非必录）
+         * @param createOrgId 创建者组织内码
+         * @return
+         */
         public Builder setCreateOrgId(long createOrgId) {
-            CreateOrgId = createOrgId;
+            unAuditParam.CreateOrgId = createOrgId;
             return this;
         }
 
+        /**
+         * 单据编码集合，格式：[No1,No2,...]（使用编码时必录）
+         * @param numbers 单据编码集合
+         * @return
+         */
         public Builder setNumbers(String[] numbers) {
-            Numbers = numbers;
+            unAuditParam.Numbers = numbers;
             return this;
         }
 
+        /**
+         * 单据内码集合，格式："Id1,Id2,..."（使用内码时必录）
+         * @param ids 单据内码集合
+         * @return
+         */
         public Builder setIds(long[] ids) {
-            Ids = ids;
+            unAuditParam.Ids = ids;
             return this;
         }
 
+        /**
+         * 是否启用网控，默认false（非必录）
+         * @param networkCtrl 是否启用网控
+         * @return
+         */
         public Builder setNetworkCtrl(boolean networkCtrl) {
-            NetworkCtrl = networkCtrl;
+            unAuditParam.NetworkCtrl = networkCtrl;
             return this;
         }
 
+        /**
+         * 交互标志集合，格式："flag1;flag2;..."（非必录）
+         * 例如（允许负库存标识：STK_InvCheckResult）
+         * @param interationFlags 交互标志集合
+         * @return
+         */
         public Builder setInterationFlags(String[] interationFlags) {
-            InterationFlags = interationFlags;
+            unAuditParam.InterationFlags = String.join(";", interationFlags);
             return this;
         }
     }

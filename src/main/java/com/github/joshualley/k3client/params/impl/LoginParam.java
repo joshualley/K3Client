@@ -11,73 +11,75 @@ public class LoginParam extends BaseParam implements RequestParam {
 
     @Override
     public String toJson() throws Exception {
-        if(null == acctID || null == username && null == password) {
-            throw new Exception("参数构建不正确!");
-        }
-        JsonObject object = new JsonObject();
-        object.addProperty("format", 1);
-        object.addProperty("useragent", "ApiClient");
-        String uuid = UUID.randomUUID().toString();
-        object.addProperty("rid", uuid);
-        JsonArray array = new JsonArray();
-        array.add(acctID);
-        array.add(username);
-        array.add(password);
-        array.add(lcid);
-        object.add("parameters", array);
-        Date date = new Date();
-        object.addProperty("timestamp", date.getTime());
-        object.addProperty("v", "1.0");
-        return object.toString();
+        return super.toJSON().getAsJsonObject("data").toString();
     }
 
     public String getRequestPath() {
         return "AuthService.ValidateUser";
     }
 
-    private LoginParam(String acctID, String username, String password, int lcid) {
-        this.acctID = acctID;
-        this.username = username;
-        this.password = password;
-        this.lcid = lcid;
-    }
+    private LoginParam() {}
 
-    private String acctID;
-    private String username;
-    private String password;
-    private int lcid;
+    private int format = 1;
+    private String useragent = "ApiClient";
+    private String rid = UUID.randomUUID().toString();
+    private String[] parameters;
+    private long timestamp = new Date().getTime();
+    private String v = "1.0";
 
     public static class Builder {
-
-        // 帐套Id，字符串类型（必录）
         private String acctID;
-        // 用户名称，字符串类型（必录）
         private String username;
-        // 用户密码，字符串类型（必录）
         private String password;
-        // 语言标识，整型（非必录）
         private int lcid = 2052;
 
+        private LoginParam loginParam = new LoginParam();
+
+        /**
+         * 构建登录参数
+         * @return 登录参数对象
+         */
         public LoginParam build() {
-            return new LoginParam(acctID, username, password, lcid);
+            assert (null == acctID && null == username && null == password) : "参数构建不正确!";
+            loginParam.parameters = new String[]{acctID, username, password, String.valueOf(lcid)};
+            return loginParam;
         }
 
-
+        /**
+         *  设置数据中心ID （必录）
+         * @param acctID 数据中心ID
+         * @return 构建器
+         */
         public Builder setAcctID(String acctID) {
             this.acctID = acctID;
             return this;
         }
 
+        /**
+         * 设置用户名（必录）
+         * @param username 用户名
+         * @return 构建器
+         */
         public Builder setUsername(String username) {
             this.username = username;
             return this;
         }
 
+        /**
+         * 设置密码（必录）
+         * @param password 密码
+         * @return 构建器
+         */
         public Builder setPassword(String password) {
             this.password = password;
             return this;
         }
 
+        /**
+         * 设置本地语言ID，默认中文2052（非必录）
+         * @param lcid 本地语言ID
+         * @return 构建器
+         */
         public Builder setLcid(int lcid) {
             this.lcid = lcid;
             return this;

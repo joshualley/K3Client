@@ -7,58 +7,75 @@ public class ViewParam extends BaseParam implements RequestParam {
         if(null == FormId || (null == Number && -1 == Id)) {
             throw new Exception("参数构建不正确！");
         }
-        return super.toJson();
+        return super.toJSON().toString();
     }
 
     public String getRequestPath() {
         return "DynamicFormService.View";
     }
 
-    public ViewParam(String formId, long createOrgId, String number, long id) {
-        FormId = formId;
-        CreateOrgId = createOrgId;
-        Number = number;
-        Id = id;
-    }
+    public ViewParam() {}
 
-    // 业务对象表单Id，字符串类型（必录）
     private String FormId;
-    // 创建者组织内码，字符串类型（非必录）
-    private long CreateOrgId;
-    // 单据编码，字符串类型（使用编码时必录）
+    private long CreateOrgId = -1;
     private String Number;
-    // 表单内码（使用内码时必录）
     private long Id;
 
     public static class Builder {
-        // 业务对象表单Id，字符串类型（必录）
+        //
         private String FormId;
-        // 创建者组织内码，字符串类型（非必录）
+        //
         private long CreateOrgId = -1;
-        // 单据编码，字符串类型（使用编码时必录）
+        //
         private String Number;
-        // 表单内码（使用内码时必录）
+        //
         private long Id = -1;
 
+        private ViewParam viewParam = new ViewParam();
+
+        /**
+         * 构建单据查询参数
+         * @return 单据查询参数对象
+         */
         public ViewParam build() {
-            return new ViewParam(FormId, CreateOrgId, Number, Id);
+            return viewParam;
         }
 
+        /**
+         * 业务对象表单Id（必录）
+         * @param formId 业务对象表单Id
+         * @return 构建器
+         */
         public Builder setFormId(String formId) {
             FormId = formId;
             return this;
         }
 
+        /**
+         * 创建者组织内码（非必录）
+         * @param createOrgId 创建者组织内码
+         * @return 构建器
+         */
         public Builder setCreateOrgId(long createOrgId) {
             CreateOrgId = createOrgId;
             return this;
         }
 
+        /**
+         * 单据编码（使用编码时必录）
+         * @param number 单据编码
+         * @return 构建器
+         */
         public Builder setNumber(String number) {
             Number = number;
             return this;
         }
 
+        /**
+         * 表单内码（使用内码时必录）
+         * @param id 表单内码
+         * @return 构建器
+         */
         public Builder setId(long id) {
             Id = id;
             return this;

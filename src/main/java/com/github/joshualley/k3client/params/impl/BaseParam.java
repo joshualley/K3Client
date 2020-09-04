@@ -7,7 +7,7 @@ import com.google.gson.JsonParser;
 import java.lang.reflect.Field;
 
 public class BaseParam {
-    public String toJson() throws Exception {
+    public JsonObject toJSON() throws Exception {
         Class clazz = this.getClass();
         Field[] fields = clazz.getDeclaredFields();
         JsonObject object = new JsonObject();
@@ -63,7 +63,7 @@ public class BaseParam {
             }
         }
         object.add("data", data);
-        return object.toString();
+        return object;
     }
 
     public JsonObject parseResponse(String response) {

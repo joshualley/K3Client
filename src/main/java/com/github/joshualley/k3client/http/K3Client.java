@@ -7,6 +7,7 @@ import okhttp3.*;
 import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +15,10 @@ import java.util.List;
 public class K3Client {
 
     private static volatile K3Client client;
-    /* 获取单例
-     * DCL双重检查锁保证线程安全
+
+    /**
+     * 获取单例，DCL双重检查锁保证线程安全
+     * @return client
      */
     public static K3Client getInstance() {
         if(null == client) {
@@ -39,7 +42,14 @@ public class K3Client {
         return this;
     }
 
-    public String post(String url, String jsonData) throws Exception {
+    /**
+     * 发送post请求
+     * @param url 请求的地址
+     * @param jsonData json数据
+     * @return 返回json字符串
+     * @throws IOException http请求时可能发生的IO异常
+     */
+    public String post(String url, String jsonData) throws IOException {
         RequestBody body = RequestBody.Companion.create(jsonData, MediaType.parse("application/json; charset=utf-8"));
         okhttp3.Request request = new Request.Builder()
                 .url(url)
@@ -52,20 +62,18 @@ public class K3Client {
 
     public JsonObject loginRequest(LoginParam param) throws Exception {
         assert domain == null : "未设置请求指向的域名.";
-        if(null == okHttpClient){
-            okHttpClient = new OkHttpClient.Builder()
-                .cookieJar(new CookieJar() {
-                    public void saveFromResponse(@NotNull HttpUrl httpUrl, @NotNull List<Cookie> list) {
-                        cookieStore.put(httpUrl.host(), list);
-                    }
+        okHttpClient = new OkHttpClient.Builder()
+            .cookieJar(new CookieJar() {
+                public void saveFromResponse(@NotNull HttpUrl httpUrl, @NotNull List<Cookie> list) {
+                    cookieStore.put(httpUrl.host(), list);
+                }
 
-                    @NotNull
-                    public List<Cookie> loadForRequest(@NotNull HttpUrl httpUrl) {
-                        List<Cookie> cookies = cookieStore.get(httpUrl.host());
-                        return cookies != null ? cookies : new ArrayList<Cookie>();
-                    }
-                }).build();
-        }
+                @NotNull
+                public List<Cookie> loadForRequest(@NotNull HttpUrl httpUrl) {
+                    List<Cookie> cookies = cookieStore.get(httpUrl.host());
+                    return cookies != null ? cookies : new ArrayList<Cookie>();
+                }
+            }).build();
         String url = domain + prefix + param.getRequestPath() + suffix;
         return param.parseResponse(post(url, param.toJson()));
     }
@@ -104,11 +112,4 @@ public class K3Client {
             }
         }).start();
     }
-
-
-    public interface K3Response {
-        public void onSuccess(JsonObject res);
-        public void onError(Exception e);
-    }
-
 }

@@ -1,6 +1,7 @@
 package com.github.joshualley.k3client;
 
 import com.github.joshualley.k3client.http.K3Client;
+import com.github.joshualley.k3client.http.K3Response;
 import com.github.joshualley.k3client.params.impl.LoginParam;
 import com.github.joshualley.k3client.params.impl.QueryParam;
 import com.github.joshualley.k3client.params.impl.SaveParam;
@@ -27,7 +28,7 @@ public class Test {
                 .setUsername("admin")
                 .setPassword("123456")
                 .build();
-        client.loginRequestAsync(param, new K3Client.K3Response() {
+        client.loginRequestAsync(param, new K3Response() {
             @Override
             public void onSuccess(JsonObject res) {
                 //TestSave();
@@ -62,7 +63,7 @@ public class Test {
                 .setFormId("ora_Task_PersonalReport")
                 .setModel(object)
                 .build();
-        client.postRequestAsync(saveParam, new K3Client.K3Response() {
+        client.postRequestAsync(saveParam, new K3Response() {
             @Override
             public void onSuccess(JsonObject res) {
                 System.out.println("res : " + res.toString());
@@ -83,7 +84,7 @@ public class Test {
                 .setFieldKeys(new String[]{"FID", "FDocumentStatus"})
                 .setFilterString("FDocumentStatus='D'")
                 .build();
-        client.postRequestAsync(queryParam, new K3Client.K3Response() {
+        client.postRequestAsync(queryParam, new K3Response() {
             @Override
             public void onSuccess(JsonObject res) {
                 System.out.println(res.toString());

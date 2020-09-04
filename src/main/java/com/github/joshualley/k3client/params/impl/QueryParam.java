@@ -9,11 +9,8 @@ public class QueryParam extends BaseParam implements RequestParam {
         if(null == FormId || null == FieldKeys) {
             throw new Exception("参数构建不正确!");
         }
-        JsonObject data = new JsonObject();
-        JsonObject object = (JsonObject) new JsonParser().parse(super.toJson());
-        object = object.getAsJsonObject("data");
-        object.addProperty("FormId", FormId);
-        data.add("data", object);
+        JsonObject data = super.toJSON().getAsJsonObject("data");
+        data.addProperty("FormId", FormId);
         return data.toString();
     }
 
@@ -54,77 +51,105 @@ public class QueryParam extends BaseParam implements RequestParam {
         return "DynamicFormService.ExecuteBillQuery";
     }
 
-    private QueryParam(String formId, String fieldKeys, String filterString, String orderString, int topRowCount, int startRow, int limit) {
-        FormId = formId;
-        FieldKeys = fieldKeys;
-        FilterString = filterString;
-        OrderString = orderString;
-        TopRowCount = topRowCount;
-        StartRow = startRow;
-        Limit = limit;
-    }
+    private QueryParam() {}
 
     private String FormId;
     private String FieldKeys;
     private String FilterString;
     private String OrderString;
-    private int TopRowCount;
-    private int StartRow;
-    private int Limit;
+    private int TopRowCount = -1;
+    private int StartRow = -1;
+    private int Limit = -1;
 
     public static class Builder {
-        // 业务对象表单Id（必录）
         private String FormId;
-        // 需查询的字段key集合，字符串类型，格式："key1,key2,..."（必录） 注（查询单据体内码,需加单据体Key和下划线,如：FEntryKey_FEntryId）
         private String[] FieldKeys;
-        // 过滤条件，字符串类型（非必录）
         private String FilterString;
-        // 排序字段，字符串类型（非必录）
         private String OrderString;
-        // 返回总行数，整型（非必录）
         private int TopRowCount = -1;
-        // 开始行索引，整型（非必录）
         private int StartRow = -1;
-        // 最大行数，整型，不能超过2000（非必录）
         private int Limit = -1;
 
+        private QueryParam queryParam = new QueryParam();
+
+        /**
+         * 构建请求参数
+         * @return 请求参数对象
+         */
         public QueryParam build() {
-            String keys = FieldKeys == null ? null : String.join(",", FieldKeys);
-            return new QueryParam(FormId, keys, FilterString, OrderString, TopRowCount, StartRow, Limit);
+            return queryParam;
         }
 
+        /**
+         * 业务对象表单Id（必录）
+         * @param formId 业务对象表单Id
+         * @return 构建器
+         */
         public Builder setFormId(String formId) {
-            FormId = formId;
+            queryParam.FormId = formId;
             return this;
         }
 
+        /**
+         * 需查询的字段key集合，格式："key1,key2,..."（必录）
+         * 注:
+         *   查询单据体内码,需加单据体Key和下划线,如：FEntryKey_FEntryId
+         *   查询基础资料属性时，格式为[基础资料字段名].[属性字段名]，如：FMaterialID.FName
+         * @param fieldKeys 需查询的字段key集合
+         * @return 构建器
+         */
         public Builder setFieldKeys(String[] fieldKeys) {
-            FieldKeys = fieldKeys;
+            queryParam.FieldKeys = String.join(",", fieldKeys);
             return this;
         }
 
+        /**
+         * 过滤条件（非必录）
+         * @param filterString 过滤条件
+         * @return 构建器
+         */
         public Builder setFilterString(String filterString) {
-            FilterString = filterString;
+            queryParam.FilterString = filterString;
             return this;
         }
 
+        /**
+         * 排序字段（非必录）
+         * @param orderString 排序字段
+         * @return 构建器
+         */
         public Builder setOrderString(String orderString) {
-            OrderString = orderString;
+            queryParam.OrderString = orderString;
             return this;
         }
 
+        /**
+         * 返回总行数（非必录）
+         * @param topRowCount 返回总行数
+         * @return 构建器
+         */
         public Builder setTopRowCount(int topRowCount) {
-            TopRowCount = topRowCount;
+            queryParam.TopRowCount = topRowCount;
             return this;
         }
 
+        /**
+         * 开始行索引（非必录）
+         * @param startRow 开始行索引
+         * @return 构建器
+         */
         public Builder setStartRow(int startRow) {
-            StartRow = startRow;
+            queryParam.StartRow = startRow;
             return this;
         }
 
+        /**
+         * 最大行数，不能超过2000（非必录）
+         * @param limit 最大行数
+         * @return 构建器
+         */
         public Builder setLimit(int limit) {
-            Limit = limit;
+            queryParam.Limit = limit;
             return this;
         }
     }
