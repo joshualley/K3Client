@@ -21,7 +21,7 @@ public class Test {
     }
 
     public static void Login() {
-        String url = "http://yourdomain.com";
+        String url = "http://yourdomian.com";
         K3Client client = K3Client.getInstance().setDomain(url);
         LoginParam param = new LoginParam.Builder()
                 .setAcctID("5f2f9bc8106814")
@@ -80,9 +80,9 @@ public class Test {
     public static void TestQuery() {
         K3Client client = K3Client.getInstance();
         QueryParam queryParam = new QueryParam.Builder()
-                .setFormId("ora_CRM_Niche")
-                .setFieldKeys(new String[]{"FID", "FDocumentStatus"})
-                .setFilterString("FDocumentStatus='D'")
+                .setFormId("GL_VOUCHER")
+                .setFieldKeys(new String[]{"FDetailID.FFlex10.FNumber"})
+                .setFilterString("FDetailID.FFlex10<>0")
                 .build();
         try{
             System.out.println(queryParam.toJson());

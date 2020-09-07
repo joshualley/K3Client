@@ -9,9 +9,11 @@ public class QueryParam extends BaseParam implements RequestParam {
         if(null == FormId || null == FieldKeys) {
             throw new Exception("参数构建不正确!");
         }
+        JsonObject object = new JsonObject();
         JsonObject data = super.toJSON().getAsJsonObject("data");
         data.addProperty("FormId", FormId);
-        return data.toString();
+        object.add("data", data);
+        return object.toString();
     }
 
     @Override
