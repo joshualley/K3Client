@@ -19,18 +19,9 @@ public class ViewParam extends BaseParam implements RequestParam {
     private String FormId;
     private long CreateOrgId = -1;
     private String Number;
-    private long Id;
+    private long Id = -1;
 
     public static class Builder {
-        //
-        private String FormId;
-        //
-        private long CreateOrgId = -1;
-        //
-        private String Number;
-        //
-        private long Id = -1;
-
         private ViewParam viewParam = new ViewParam();
 
         /**
@@ -47,7 +38,7 @@ public class ViewParam extends BaseParam implements RequestParam {
          * @return 构建器
          */
         public Builder setFormId(String formId) {
-            FormId = formId;
+            viewParam.FormId = formId;
             return this;
         }
 
@@ -57,7 +48,7 @@ public class ViewParam extends BaseParam implements RequestParam {
          * @return 构建器
          */
         public Builder setCreateOrgId(long createOrgId) {
-            CreateOrgId = createOrgId;
+            viewParam.CreateOrgId = createOrgId;
             return this;
         }
 
@@ -67,7 +58,7 @@ public class ViewParam extends BaseParam implements RequestParam {
          * @return 构建器
          */
         public Builder setNumber(String number) {
-            Number = number;
+            viewParam.Number = number;
             return this;
         }
 
@@ -77,7 +68,7 @@ public class ViewParam extends BaseParam implements RequestParam {
          * @return 构建器
          */
         public Builder setId(long id) {
-            Id = id;
+            viewParam.Id = id;
             return this;
         }
     }

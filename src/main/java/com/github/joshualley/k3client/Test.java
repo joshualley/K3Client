@@ -8,7 +8,6 @@ import com.github.joshualley.k3client.params.impl.SaveParam;
 import com.github.joshualley.k3client.params.impl.ViewParam;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.github.joshualley.k3client.params.impl.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,24 +20,16 @@ public class Test {
     }
 
     public static void Login() {
-        String url = "http://yourdomian.com";
+        String url = "http://yoururl.com";
         K3Client client = K3Client.getInstance().setDomain(url);
         LoginParam param = new LoginParam.Builder()
                 .setAcctID("5f2f9bc8106814")
                 .setUsername("user")
                 .setPassword("123456")
                 .build();
-        client.loginRequestAsync(param, new K3Response() {
-            @Override
-            public void onSuccess(JsonObject res) {
-                //TestSave();
-                TestQuery();
-            }
-
-            @Override
-            public void onError(Exception e) {
-                System.out.println("登录时发生错误：" + e.getMessage());
-            }
+        client.loginRequestAsync(param, res -> {
+            //TestSave();
+            TestQuery();
         });
     }
 
@@ -84,9 +75,6 @@ public class Test {
                 .setFieldKeys(new String[]{"FDetailID.FFlex10.FNumber"})
                 .setFilterString("FDetailID.FFlex10<>0")
                 .build();
-        try{
-            System.out.println(queryParam.toJson());
-        }catch (Exception e){}
 
         client.postRequestAsync(queryParam, new K3Response() {
             @Override

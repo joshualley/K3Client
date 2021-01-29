@@ -62,16 +62,17 @@ public class K3Client {
 
     public JsonObject loginRequest(LoginParam param) throws Exception {
         assert domain == null : "未设置请求指向的域名.";
+        cookieStore.clear();
         okHttpClient = new OkHttpClient.Builder()
             .cookieJar(new CookieJar() {
-                public void saveFromResponse(@NotNull HttpUrl httpUrl, @NotNull List<Cookie> list) {
-                    cookieStore.put(httpUrl.host(), list);
-                }
-
                 @NotNull
                 public List<Cookie> loadForRequest(@NotNull HttpUrl httpUrl) {
                     List<Cookie> cookies = cookieStore.get(httpUrl.host());
                     return cookies != null ? cookies : new ArrayList<Cookie>();
+                }
+
+                public void saveFromResponse(@NotNull HttpUrl httpUrl, @NotNull List<Cookie> list) {
+                    cookieStore.put(httpUrl.host(), list);
                 }
             }).build();
         String url = domain + prefix + param.getRequestPath() + suffix;
@@ -79,15 +80,12 @@ public class K3Client {
     }
 
     public void loginRequestAsync(final LoginParam param, final K3Response response) {
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    JsonObject res = loginRequest(param);
-                    response.onSuccess(res);
-                } catch (Exception e) {
-                    response.onError(e);
-                }
-
+        new Thread(() -> {
+            try {
+                JsonObject res = loginRequest(param);
+                response.onSuccess(res);
+            } catch (Exception e) {
+                response.onError(e);
             }
         }).start();
     }
@@ -100,15 +98,12 @@ public class K3Client {
     }
 
     public void postRequestAsync(final RequestParam param, final K3Response response) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    JsonObject res = postRequest(param);
-                    response.onSuccess(res);
-                } catch (Exception e) {
-                    response.onError(e);
-                }
+        new Thread(() -> {
+            try {
+                JsonObject res = postRequest(param);
+                response.onSuccess(res);
+            } catch (Exception e) {
+                response.onError(e);
             }
         }).start();
     }

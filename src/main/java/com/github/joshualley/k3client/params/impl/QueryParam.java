@@ -64,13 +64,6 @@ public class QueryParam extends BaseParam implements RequestParam {
     private int Limit = -1;
 
     public static class Builder {
-        private String FormId;
-        private String[] FieldKeys;
-        private String FilterString;
-        private String OrderString;
-        private int TopRowCount = -1;
-        private int StartRow = -1;
-        private int Limit = -1;
 
         private QueryParam queryParam = new QueryParam();
 

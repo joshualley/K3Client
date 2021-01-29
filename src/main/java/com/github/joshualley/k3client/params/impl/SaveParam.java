@@ -20,8 +20,8 @@ public class SaveParam extends BaseParam implements RequestParam {
     private SaveParam() {}
 
     private String FormId;
-    private String NeedUpDateFields;
-    private String NeedReturnFields;
+    private String[] NeedUpDateFields;
+    private String[] NeedReturnFields;
     private boolean IsDeleteEntry = true;
     private String SubSystemId;
     private boolean IsVerifyBaseDataField = false;
@@ -59,7 +59,7 @@ public class SaveParam extends BaseParam implements RequestParam {
          * @return
          */
         public Builder setNeedUpDateFields(String[] needUpDateFields) {
-            saveParam.NeedUpDateFields = String.join(",", needUpDateFields);
+            saveParam.NeedUpDateFields = needUpDateFields;
             return this;
         }
 
@@ -70,7 +70,7 @@ public class SaveParam extends BaseParam implements RequestParam {
          * @return
          */
         public Builder setNeedReturnFields(String[] needReturnFields) {
-            saveParam.NeedReturnFields = String.join(",", needReturnFields);
+            saveParam.NeedReturnFields = needReturnFields;
             return this;
         }
 
