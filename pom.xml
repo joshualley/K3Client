@@ -7,7 +7,7 @@
     <groupId>com.github.joshualley</groupId>
     <artifactId>K3Client</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 
     <name>K3Client</name>
     <url>https://github.com/joshualley/K3Client</url>

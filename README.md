@@ -4,7 +4,7 @@
     <dependency>
       <groupId>com.github.joshualley</groupId>
       <artifactId>K3Client</artifactId>
-      <version>1.1.0</version>
+      <version>1.2.0</version>
     </dependency>
    ```
     
@@ -29,6 +29,10 @@
         public void onError(Exception e) {
             System.out.println("登录时发生错误：" + e.getMessage());
         }
+    });
+    // 如果忽略错误可以使用lambda
+    client.loginRequestAsync(param, res -> {
+       // Do Something.
     });
    ```
 2. 其他查询，登录之后才能够使用，以单据查询为例
